@@ -83,43 +83,52 @@
 
     <!-- Modal de Información sobre CliftonStrengths -->
     <div id="strengths-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl p-6 relative max-h-[90vh] overflow-y-auto">
-            <!-- Botón de Cerrar Modal -->
-            <button id="close-modal-button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
+        <!-- Panel del Modal: flex-col para separar header y body, overflow-hidden para los bordes redondeados -->
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl flex flex-col max-h-[90vh] overflow-hidden">
+            
+            <!-- Encabezado del Modal (Fijo) -->
+            <div class="flex justify-between items-center p-6 border-b border-gray-200 flex-shrink-0">
+                <h2 class="text-xl font-bold text-gray-800">About CliftonStrengths</h2>
+                <!-- Botón de Cerrar Modal (Ahora en el encabezado) -->
+                <button id="close-modal-button" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
 
-            <h2 class="text-xl font-bold text-gray-800 mb-4">About CliftonStrengths</h2>
-            <p class="text-gray-600 mb-4">
-                CliftonStrengths (formerly StrengthsFinder) is an assessment tool that identifies your 34 natural talents, ranked in order. Your "Top 5" are your most dominant strengths.
-            </p>
-            <p class="text-gray-600 mb-6">
-                These talents are grouped into four domains. Click on each domain to learn more:
-            </p>
-            <!-- Acordeón Interactivo -->
-            <div class="space-y-2">
-                <!-- Dominio 1: Strategic Thinking -->
-                <details class="group border rounded-lg">
-                    <summary class="flex justify-between items-center p-4 cursor-pointer list-none font-medium text-blue-700 hover:bg-blue-50 rounded-t-lg">
-                        <strong>Strategic Thinking</strong>
-                        <span class="text-blue-700 transform transition-transform group-open:rotate-180">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </span>
-                    </summary>
-                    <div class="p-4 bg-gray-50 border-t border-gray-200 rounded-b-lg space-y-2">
-                        <p class="text-gray-600 mb-3">How you absorb, think about, and analyze information and situations.</p>
+            <!-- Cuerpo del Modal (Scrollable) -->
+            <div class="overflow-y-auto p-6">
+                <p class="text-gray-600 mb-4">
+                    CliftonStrengths (formerly StrengthsFinder) is an assessment tool that identifies your 34 natural talents, ranked in order. Your "Top 5" are your most dominant strengths.
+                </p>
+                <p class="text-gray-600 mb-6">
+                    These talents are grouped into four domains. Click on each domain to learn more:
+                </p>
+                <!-- Acordeón Interactivo -->
+                <div class="space-y-2">
+                    <!-- Dominio 1: Strategic Thinking -->
+                    <details class="group border rounded-lg">
+                        <!-- ¡AQUÍ ESTÁ LA CORRECCIÓN! Faltaba este <summary> -->
+                        <summary class="flex justify-between items-center p-4 cursor-pointer list-none font-medium text-blue-700 hover:bg-blue-50 rounded-t-lg">
+                            <strong>Strategic Thinking</strong>
+                            <span class="text-blue-700 transform transition-transform group-open:rotate-180">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <!-- Y este <div> contenedor -->
+                        <div class="p-4 bg-gray-50 border-t border-gray-200 rounded-b-lg space-y-2">
+                            <p class="text-gray-600 mb-3">How you absorb, think about, and analyze information and situations.</p>
                         
-                        <!-- Lista anidada de fortalezas -->
-                        <details class="group/strength border rounded-lg bg-white shadow-sm">
-                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
-                                <strong>Analytical</strong>
-                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
-                            </summary>
-                            <p class="p-3 border-t text-sm text-gray-600">Searches for reasons and causes; has the ability to think about all the factors that might affect a situation.</p>
-                        </details>
-                        <details class="group/strength border rounded-lg bg-white shadow-sm">
-                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
-                                <strong>Context</strong>
+                            <!-- Lista anidada de fortalezas -->
+                            <details class="group/strength border rounded-lg bg-white shadow-sm">
+                                <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                    <strong>Analytical</strong>
+                                    <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                                </summary>
+                                <p class="p-3 border-t text-sm text-gray-600">Searches for reasons and causes; has the ability to think about all the factors that might affect a situation.</p>
+                            </details>
+                            <details class="group/strength border rounded-lg bg-white shadow-sm">
+                                <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                    <strong>Context</strong>
                                 <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
                             </summary>
                             <p class="p-3 border-t text-sm text-gray-600">Enjoys thinking about the past; understands the present by researching its history.</p>
@@ -314,7 +323,7 @@
                             <p class="p-3 border-t text-sm text-gray-600">Loves the challenge of meeting new people and winning them over; "Winning Others Over".</p>
                         </details>
                     </div>
-                </Ddetails>
+                </details> <!-- <-- ¡CORRECCIÓN! Antes decía </Ddetails> -->
 
                 <!-- Dominio 4: Executing -->
                 <details class="group border rounded-lg">
@@ -394,9 +403,11 @@
                 </details>
             </div>
             
-            <p class="text-gray-600 mt-6 text-sm">
-                To learn more, visit the official <a href="https://www.gallup.com/cliftonstrengths" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Gallup CliftonStrengths</a> website.
-            </p>
+                <p class="text-gray-600 mt-6 text-sm">
+                    To learn more, visit the official <a href="https://www.gallup.com/cliftonstrengths" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Gallup CliftonStrengths</a> website.
+                </p>
+            </div>
+
         </div>
     </div>
 
