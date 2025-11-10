@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecting your CliftonStrengths</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fuente Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilo base con la fuente Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Clase para ocultar elementos */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <!-- Contenedor Principal de la App -->
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden">
+
+        <!-- Encabezado con Logo -->
+        <header class="p-6 bg-white border-b border-gray-200">
+            <img id="logo" 
+                 src="https://fr.zone-secure.net/149562/1176467.png" 
+                 alt="Institutional Logo" 
+                 class="h-16 w-auto mx-auto"
+                 onerror="this.src='https://placehold.co/300x80/EEEEEE/333333?text=Logo+Not+Found'; this.onerror=null;">
+        </header>
+
+        <!-- Pantalla de Inicio (Start Screen) -->
+        <main id="start-screen" class="p-8 text-center">
+            <h1 class="text-2xl font-bold text-gray-800 mb-4">Selecting your CliftonStrengths</h1>
+            <p class="text-gray-600 mb-8">This activity will help you reflect on your top strengths by asking 3 random questions.</p>
+            <button id="start-button" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                Start Activity
+            </button>
+            <button class="show-strengths-button w-full bg-gray-200 text-gray-700 font-bold py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors mt-4">
+                What are CliftonStrengths?
+            </button>
+        </main>
+
+        <!-- Pantalla de Preguntas (Question Screen) -->
+        <main id="question-screen" class="p-8 text-center hidden">
+            <p class="text-gray-500 text-sm mb-4" id="question-counter">Question 1 of 3</p>
+            <p id="question-text" class="text-xl font-medium text-gray-800 min-h-[150px] flex items-center justify-center mb-8">
+                <!-- El texto de la pregunta irá aquí -->
+            </p>
+            <button id="next-button" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                Next
+            </button>
+            <button class="show-strengths-button w-full bg-gray-200 text-gray-700 font-bold py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors mt-4">
+                What are CliftonStrengths?
+            </button>
+        </main>
+
+        <!-- Pantalla Final (Final Screen) -->
+        <main id="final-screen" class="p-8 text-center hidden">
+            <h1 class="text-2xl font-bold text-gray-800 mb-4">Reflection Complete!</h1>
+            <p class="text-gray-600 mb-6">Here are the questions you reflected on:</p>
+            
+            <!-- Lista de preguntas respondidas -->
+            <ul id="final-questions-list" class="text-left space-y-3 mb-8">
+                <!-- Las preguntas se agregarán aquí dinámicamente -->
+            </ul>
+            
+            <button id="restart-button" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                Restart Activity
+            </button>
+            <button class="show-strengths-button w-full bg-gray-200 text-gray-700 font-bold py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors mt-4">
+                What are CliftonStrengths?
+            </button>
+        </main>
+
+    </div>
+
+    <!-- Modal de Información sobre CliftonStrengths -->
+    <div id="strengths-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl p-6 relative max-h-[90vh] overflow-y-auto">
+            <!-- Botón de Cerrar Modal -->
+            <button id="close-modal-button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <h2 class="text-xl font-bold text-gray-800 mb-4">About CliftonStrengths</h2>
+            <p class="text-gray-600 mb-4">
+                CliftonStrengths (formerly StrengthsFinder) is an assessment tool that identifies your 34 natural talents, ranked in order. Your "Top 5" are your most dominant strengths.
+            </p>
+            <p class="text-gray-600 mb-6">
+                These talents are grouped into four domains. Click on each domain to learn more:
+            </p>
+            <!-- Acordeón Interactivo -->
+            <div class="space-y-2">
+                <!-- Dominio 1: Strategic Thinking -->
+                <details class="group border rounded-lg">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer list-none font-medium text-blue-700 hover:bg-blue-50 rounded-t-lg">
+                        <strong>Strategic Thinking</strong>
+                        <span class="text-blue-700 transform transition-transform group-open:rotate-180">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="p-4 bg-gray-50 border-t border-gray-200 rounded-b-lg space-y-2">
+                        <p class="text-gray-600 mb-3">How you absorb, think about, and analyze information and situations.</p>
+                        
+                        <!-- Lista anidada de fortalezas -->
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Analytical</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Searches for reasons and causes; has the ability to think about all the factors that might affect a situation.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Context</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Enjoys thinking about the past; understands the present by researching its history.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Futuristic</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Inspired by the future and what could be; inspires others with their visions of the future.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Ideation</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Fascinated by ideas; able to find connections between seemingly disparate phenomena.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Input</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Has a craving to know more; often likes to collect and archive all kinds of information.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Intellection</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Characterized by their intellectual activity; introspective and appreciates intellectual discussions.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Learner</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Has a great desire to learn and wants to continuously improve. The process of learning excites them.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Strategic</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Creates alternative ways to proceed; can quickly spot the relevant patterns and issues in any scenario.</p>
+                        </details>
+                    </div>
+                </details>
+
+                <!-- Dominio 2: Relationship Building -->
+                <details class="group border rounded-lg">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer list-none font-medium text-yellow-700 hover:bg-yellow-50 rounded-t-lg">
+                        <strong>Relationship Building</strong>
+                        <span class="text-yellow-700 transform transition-transform group-open:rotate-180">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="p-4 bg-gray-50 border-t border-gray-200 rounded-b-lg space-y-2">
+                        <p class="text-gray-600 mb-3">How you build and nurture strong relationships with others.</p>
+                        
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Adaptability</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Prefers to "go with the flow"; tends to be a "now" person who lives in the moment.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Connectedness</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Has faith in the links between all things; believes there are few coincidences.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Developer</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Recognizes and cultivates the potential in others; spots signs of growth in others.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Empathy</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Can sense the feelings of other people by imagining themselves in others' lives or situations.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Harmony</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Looks for consensus; doesn't enjoy conflict and seeks areas of agreement.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Includer</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Is accepting of others; shows awareness of those who feel left out and tries to include them.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Individualization</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Intrigued with the unique qualities of each person; figures out how people who are different can work together.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Positivity</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Has an enthusiasm that is contagious; is upbeat and can get others excited about what they are going to do.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Relator</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Enjoys close relationships with others; finds deep satisfaction in working hard with friends to achieve a goal.</p>
+                        </details>
+                    </div>
+                </details>
+
+                <!-- Dominio 3: Influencing -->
+                <details class="group border rounded-lg">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer list-none font-medium text-purple-700 hover:bg-purple-50 rounded-t-lg">
+                        <strong>Influencing</strong>
+                        <span class="text-purple-700 transform transition-transform group-open:rotate-180">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="p-4 bg-gray-50 border-t border-gray-200 rounded-b-lg space-y-2">
+                        <p class="text-gray-600 mb-3">How you take charge, speak up, and make sure your team is heard.</p>
+
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Activator</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Can make things happen by turning thoughts into action; is often impatient for action.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Command</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Has presence; can take control of a situation and make decisions.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Communication</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Finds it easy to put their thoughts into words; good conversationalist and presenter.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Competition</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Measures their progress against the performance of others; strives to win first place.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Maximizer</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Focuses on strengths as a way to stimulate personal and group excellence.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Self-Assurance</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Feels confident in their ability to manage their own lives; possesses an inner compass.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Significance</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Wants to be very important in the eyes of others; is independent and wants to be recognized.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Woo</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Loves the challenge of meeting new people and winning them over; "Winning Others Over".</p>
+                        </details>
+                    </div>
+                </Ddetails>
+
+                <!-- Dominio 4: Executing -->
+                <details class="group border rounded-lg">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer list-none font-medium text-red-700 hover:bg-red-50 rounded-t-lg">
+                        <strong>Executing</strong>
+                        <span class="text-red-700 transform transition-transform group-open:rotate-180">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="p-4 bg-gray-50 border-t border-gray-200 rounded-b-lg space-y-2">
+                        <p class="text-gray-600 mb-3">How you make things happen and turn ideas into reality.</p>
+
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Achiever</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Has great stamina and works hard; gets great satisfaction from being busy and productive.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Arranger</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Can organize, but also has a flexibility; likes to figure out how all pieces can be arranged for maximum productivity.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Belief</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Has certain core values that are unchanging; from these values emerges a defined purpose for their life.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Consistency</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Keenly aware of the need to treat people the same; tries to treat everyone with equality.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Deliberative</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Describes people who are careful and vigilant; serious about decisions and choices.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Discipline</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Enjoys routine and structure; their world is best described by the order they create.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Focus</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Can take a direction, follow through, and make corrections to stay on track; prioritizes, then acts.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Responsibility</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Takes psychological ownership of what they say they will do; committed to stable values like honesty.</p>
+                        </details>
+                        <details class="group/strength border rounded-lg bg-white shadow-sm">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer list-none font-medium text-gray-700 text-sm hover:bg-gray-50">
+                                <strong>Restorative</strong>
+                                <span class="text-gray-400 group-open/strength:rotate-45 transform transition-transform">+</span>
+                            </summary>
+                            <p class="p-3 border-t text-sm text-gray-600">Adept at dealing with problems; good at figuring out what is wrong and resolving it.</p>
+                        </details>
+                    </div>
+                </details>
+            </div>
+            
+            <p class="text-gray-600 mt-6 text-sm">
+                To learn more, visit the official <a href="https://www.gallup.com/cliftonstrengths" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Gallup CliftonStrengths</a> website.
+            </p>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Lista de todas las preguntas ---
+            const allQuestions = [
+                "Which of your 5 strengths makes you feel most free and authentic?",
+                "For which of your 5 strengths do you receive the most praise?",
+                "Which of your 5 strengths do you believe you’ve mastered most deeply?",
+                "Which of your strengths could help you collaborate more effectively in a team?",
+                "Which of your 5 strengths do you most want others to recognize in you?",
+                "Which of your 5 strengths do you feel makes your family most proud of you?",
+                "Which of the 5 do you believe is your strongest or most dominant strength?",
+                "If you had the opportunity to contribute to a group effort, which of your strengths would you use to succeed?"
+            ];
+
+            // --- Variables de Estado ---
+            let selectedQuestions = [];
+            let askedQuestions = [];
+            let currentQuestionIndex = 0;
+
+            // --- Elementos del DOM ---
+            const startScreen = document.getElementById('start-screen');
+            const questionScreen = document.getElementById('question-screen');
+            const finalScreen = document.getElementById('final-screen');
+            const strengthsModal = document.getElementById('strengths-modal');
+
+            const startButton = document.getElementById('start-button');
+            const nextButton = document.getElementById('next-button');
+            const restartButton = document.getElementById('restart-button');
+            const showStrengthsButtons = document.querySelectorAll('.show-strengths-button'); // <--- Cambio aquí
+            const closeModalButton = document.getElementById('close-modal-button');
+
+            const questionText = document.getElementById('question-text');
+            const questionCounter = document.getElementById('question-counter');
+            const finalQuestionsList = document.getElementById('final-questions-list');
+
+            // --- Funciones de la App ---
+
+            /**
+             * Oculta todas las pantallas principales y muestra la deseada.
+             * @param {HTMLElement} screenToShow El elemento de la pantalla a mostrar.
+             */
+            function showScreen(screenToShow) {
+                startScreen.classList.add('hidden');
+                questionScreen.classList.add('hidden');
+                finalScreen.classList.add('hidden');
+                screenToShow.classList.remove('hidden');
+            }
+
+            /**
+             * Prepara la actividad, seleccionando 3 preguntas al azar.
+             */
+            function initializeActivity() {
+                currentQuestionIndex = 0;
+                askedQuestions = [];
+                selectedQuestions = [];
+
+                // Barajar las preguntas y seleccionar 3
+                const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
+                selectedQuestions = shuffled.slice(0, 3);
+                
+                showScreen(startScreen);
+            }
+
+            /**
+             * Muestra la pregunta actual en la pantalla.
+             */
+            function displayQuestion() {
+                const question = selectedQuestions[currentQuestionIndex];
+                questionText.textContent = question;
+                questionCounter.textContent = `Question ${currentQuestionIndex + 1} of 3`;
+                
+                // Guardar la pregunta para el resumen final
+                askedQuestions.push(question);
+
+                // Cambiar el texto del botón si es la última pregunta
+                if (currentQuestionIndex === selectedQuestions.length - 1) {
+                    nextButton.textContent = "Finish";
+                } else {
+                    nextButton.textContent = "Next";
+                }
+            }
+
+            /**
+             * Muestra la pantalla final con el resumen de preguntas.
+             */
+            function showFinalScreen() {
+                finalQuestionsList.innerHTML = ''; // Limpiar lista anterior
+                
+                askedQuestions.forEach(question => {
+                    const li = document.createElement('li');
+                    li.className = 'bg-gray-100 p-4 rounded-lg text-gray-700 shadow-sm';
+                    li.textContent = question;
+                    finalQuestionsList.appendChild(li);
+                });
+
+                showScreen(finalScreen);
+            }
+
+            // --- Event Listeners ---
+
+            // Iniciar la actividad
+            startButton.addEventListener('click', () => {
+                displayQuestion();
+                showScreen(questionScreen);
+            });
+
+            // Ir a la siguiente pregunta o finalizar
+            nextButton.addEventListener('click', () => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < selectedQuestions.length) {
+                    displayQuestion();
+                } else {
+                    showFinalScreen();
+                }
+            });
+
+            // Reiniciar la actividad
+            restartButton.addEventListener('click', initializeActivity);
+
+            // --- Lógica del Modal ---
+            // Añadir listener a TODOS los botones de "What are..."
+            showStrengthsButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    strengthsModal.classList.remove('hidden');
+                });
+            });
+
+            closeModalButton.addEventListener('click', () => {
+                strengthsModal.classList.add('hidden');
+            });
+
+            // Cerrar modal al hacer clic fuera del contenido
+            strengthsModal.addEventListener('click', (e) => {
+                if (e.target === strengthsModal) {
+                    strengthsModal.classList.add('hidden');
+                }
+            });
+
+            // Inicializar la app al cargar la página
+            initializeActivity();
+        });
+    </script>
+</body>
+</html>
